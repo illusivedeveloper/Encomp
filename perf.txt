@@ -1,0 +1,29 @@
+gprof2dot--------
+
+gprof rsa | gprof2dot -n0 -e0 | dot -Tpng -o output2.png
+
+valgrind-----------
+
+valgrind --tool=callgrind ./MAIN 11223344556677889900aabbccddeeff test
+callgrind_annotate callgrind.out.14999
+
+gprof-------------------
+
+cc -pg -o rsa rsa.c
+gprof RSA
+
+flamegraphs----------------------
+
+sudo perf record -F 99 -p 181 -g -- sleep 60
+sudo perf script > out.perf -f
+./stackcollapse-perf.pl out.perf > out.folded
+./flamegraph.pl out.folded > kernel.svg
+
+FreeImage-----------------------
+-lfreeimage
+
+Openssl------------------
+-lcrypto
+
+Math.h-------------------
+-lm
